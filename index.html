@@ -1,1 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decision-Making Research — Registration</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: #f5f4f0; color: #1a1a1a; min-height: 100vh; }
+  .wrap { max-width: 660px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+  .hero { text-align: center; padding: 2.5rem 1rem 2rem; border-bottom: 1px solid #e0ddd6; margin-bottom: 2rem; }
+  .badge { display: inline-block; background: #e8f0fb; color: #2563eb; font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 20px; margin-bottom: 1rem; letter-spacing: .03em; }
+  .hero h1 { font-family: 'Crimson Pro', serif; font-size: 30px; font-weight: 600; line-height: 1.3; margin-bottom: .75rem; color: #111; }
+  .hero p { font-size: 14px; color: #666; line-height: 1.8; max-width: 500px; margin: 0 auto; }
+  .card { background: #fff; border: 1px solid #e8e5de; border-radius: 14px; padding: 1.5rem; margin-bottom: 1.25rem; }
+  .card h2 { font-family: 'Crimson Pro', serif; font-size: 19px; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; color: #111; }
+  .icon { width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; flex-shrink: 0; background: #e8f0fb; color: #2563eb; }
+  .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .detail-item label { font-size: 11px; color: #999; display: block; margin-bottom: 3px; text-transform: uppercase; letter-spacing: .05em; }
+  .detail-item span { font-size: 14px; font-weight: 500; color: #222; }
+  .warn-note { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #92400e; margin-top: 1rem; line-height: 1.5; }
+  .rights-list, .consent-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .rights-list li, .consent-list li { font-size: 13px; line-height: 1.7; color: #555; padding-left: 18px; position: relative; }
+  .rights-list li::before { content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: #ccc; }
+  .consent-list li::before { content: '—'; position: absolute; left: 0; top: 0; color: #bbb; }
+  .agree-box { background: #f9f8f5; border: 1px solid #e8e5de; border-radius: 8px; padding: 1rem; margin-top: 1rem; display: flex; align-items: flex-start; gap: 10px; }
+  .agree-box input[type=checkbox] { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; cursor: pointer; accent-color: #1a1a1a; }
+  .agree-box label { font-size: 13px; line-height: 1.6; cursor: pointer; color: #444; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-group label { font-size: 11px; color: #999; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+  .form-group input, .form-group select { font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 9px 12px; border: 1px solid #e0ddd6; border-radius: 8px; background: #fff; color: #1a1a1a; width: 100%; transition: border-color .15s; }
+  .form-group input:focus, .form-group select:focus { outline: none; border-color: #999; }
+  .id-preview { background: #f0f9f4; border: 1px solid #bbf0d4; border-radius: 8px; padding: 12px 16px; margin-top: 1.25rem; display: none; align-items: center; gap: 12px; }
+  .id-preview .id-label { font-size: 11px; color: #4a7c59; text-transform: uppercase; letter-spacing: .05em; }
+  .id-preview .id-value { font-family: monospace; font-size: 16px; font-weight: 600; color: #166534; letter-spacing: .06em; margin-top: 2px; }
+  .btn-primary { width: 100%; padding: 13px; background: #1a1a1a; color: #fff; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; margin-top: 1.5rem; transition: opacity .2s; }
+  .btn-primary:hover { opacity: .85; }
+  .btn-primary:disabled { opacity: .35; cursor: not-allowed; }
+  .contact { text-align: center; font-size: 12px; color: #999; margin-top: 1.5rem; }
+  .contact a { color: #555; }
+  .step { display: none; }
+  .step.active { display: block; }
+  .success { text-align: center; padding: 3rem 1rem; }
+  .success-icon { width: 56px; height: 56px; background: #f0f9f4; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 26px; color: #166534; }
+  .success h2 { font-family: 'Crimson Pro', serif; font-size: 26px; margin-bottom: 1rem; color: #111; }
+  .success p { font-size: 14px; color: #666; margin-bottom: .75rem; line-height: 1.8; }
+  .id-chip { display: inline-block; font-family: monospace; font-size: 18px; font-weight: 600; color: #166534; background: #f0f9f4; border: 1px solid #bbf0d4; border-radius: 8px; padding: 6px 18px; margin: .5rem 0 1.25rem; letter-spacing: .06em; }
+  .manual-link-box { background: #f9f8f5; border: 1px solid #e8e5de; border-radius: 8px; padding: 12px 16px; margin: 1rem auto; max-width: 500px; font-size: 12px; color: #666; }
+  .manual-link-box a { color: #2563eb; font-weight: 500; word-break: break-all; }
+  .countdown { font-size: 13px; color: #999; margin-top: .75rem; }
+  .error-msg { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #b91c1c; margin-top: 1rem; line-height: 1.5; display: none; }
+  .age-error { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #b91c1c; margin-top: 1rem; line-height: 1.5; display: none; }
+  /* Health checkboxes */
+  .check-row { display: flex; align-items: flex-start; gap: 10px; margin-top: 8px; }
+  .check-row input[type=checkbox] { width: 15px; height: 15px; flex-shrink: 0; margin-top: 3px; cursor: pointer; accent-color: #1a1a1a; }
+  .check-row label { font-size: 13px; line-height: 1.6; color: #444; cursor: pointer; }
+  .conditional-input { margin-top: 8px; display: none; }
+  .conditional-input input { font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 8px 12px; border: 1px solid #e0ddd6; border-radius: 8px; width: 100%; }
+  .conditional-input input:focus { outline: none; border-color: #999; }
+  .section-divider { border: none; border-top: 1px solid #e8e5de; margin: 1rem 0; }
+  /* CRSi-7 questionnaire */
+  .question-block { margin-bottom: 1.5rem; }
+  .question-block:last-child { margin-bottom: 0; }
+  .q-text { font-size: 14px; color: #222; line-height: 1.7; margin-bottom: .75rem; font-weight: 500; }
+  .q-sub { font-size: 12px; color: #888; margin-bottom: .75rem; }
+  .likert { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .likert-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+  .likert-item input[type=radio] { width: 16px; height: 16px; accent-color: #1a1a1a; cursor: pointer; }
+  .likert-item label { font-size: 10px; color: #888; text-align: center; line-height: 1.3; cursor: pointer; }
+  .likert-item label span { display: block; font-size: 9px; color: #bbb; }
+  .progress-bar-wrap { height: 3px; background: #e8e5de; border-radius: 2px; margin-bottom: 2rem; }
+  .progress-bar { height: 100%; background: #1a1a1a; border-radius: 2px; transition: width .3s; }
+</style>
+</head>
+<body>
+<div class="wrap">
 
+  <!-- Step 1: Consent -->
+  <div id="step1" class="step active">
+    <div class="progress-bar-wrap"><div class="progress-bar" style="width:25%"></div></div>
+    <div class="hero">
+      <div class="badge">Research Study</div>
+      <h1>Decision-Making Research<br>Participants Wanted</h1>
+      <p>Hi! I am currently conducting research on decision-making for my master's project. This study aims to explore whether individuals from different cultural backgrounds exhibit different patterns of decision-making.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="icon">i</span> Study details</h2>
+      <div class="detail-grid">
+        <div class="detail-item"><label>Purpose</label><span>Cross-cultural decision-making patterns</span></div>
+        <div class="detail-item"><label>Eligibility</label><span>Muslim / Buddhist / Christian, age 18–60</span></div>
+        <div class="detail-item"><label>Duration</label><span>~20 minutes</span></div>
+        <div class="detail-item"><label>Format</label><span>Online computerised task</span></div>
+      </div>
+      <div class="warn-note">&#9888; This test must be completed using a computer — not a mobile device.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="icon">1</span> Participant rights</h2>
+      <ul class="rights-list">
+        <li>Participate voluntarily and withdraw at any time without any negative consequences.</li>
+        <li>Decline to answer any question you do not feel comfortable with.</li>
+        <li>Have your personal information kept confidential and protected.</li>
+        <li>Be informed about the purpose of the study and how your data will be used.</li>
+        <li>Ask questions about the study at any time by contacting the researcher.</li>
+      </ul>
+      <div class="agree-box">
+        <input type="checkbox" id="ck1">
+        <label for="ck1">I have read and understood my rights as a participant in this study.</label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="icon">2</span> Informed consent</h2>
+      <p style="font-size:13px;color:#666;margin-bottom:12px;line-height:1.7">By proceeding, you confirm that:</p>
+      <ul class="consent-list">
+        <li>You have read and understood the information provided about this research.</li>
+        <li>You are between 18 and 60 years of age.</li>
+        <li>You voluntarily agree to participate in this study.</li>
+        <li>You understand this study involves completing an online decision-making task and two questionnaires taking approximately 20 minutes.</li>
+        <li>You understand your responses will be used for academic research purposes only.</li>
+        <li>Your data will be securely managed and stored at the Department of Psychology, Kaohsiung Medical University, and will not be disclosed to any third party or used for purposes unrelated to this study.</li>
+        <li>You understand you may withdraw at any time without penalty by closing the browser or discontinuing participation.</li>
+        <li>This research protocol has been reviewed and approved by the Institutional Review Board (IRB).</li>
+      </ul>
+      <div class="agree-box">
+        <input type="checkbox" id="ck2">
+        <label for="ck2">I confirm the above and give my informed consent to participate in this study.</label>
+      </div>
+    </div>
+
+    <button class="btn-primary" id="nextBtn" disabled onclick="goStep2()">Continue to registration</button>
+    <p class="contact">Questions? Contact <a href="mailto:zilin0426@gmail.com">zilin0426@gmail.com</a> · <a href="tel:+886928318704">0928-318-704</a></p>
+  </div>
+
+  <!-- Step 2: Personal Information -->
+  <div id="step2" class="step">
+    <div class="progress-bar-wrap"><div class="progress-bar" style="width:50%"></div></div>
+    <div class="hero">
+      <div class="badge">Step 2 of 3</div>
+      <h1>Personal information<br>個人資料</h1>
+      <p>Please fill in all fields. Your nickname will be used to generate your unique participant ID.</p>
+    </div>
+
+    <div class="card">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Nickname 昵稱 *</label>
+          <input type="text" id="nickname" placeholder="e.g. Alex" oninput="updateID()">
+        </div>
+        <div class="form-group">
+          <label>Date of birth 生日 * (age 18–60)</label>
+          <input type="date" id="birth" onchange="checkAge()">
+        </div>
+        <div class="form-group">
+          <label>Gender 性別 *</label>
+          <select id="gender" onchange="updateID()">
+            <option value="">Select / 選擇</option>
+            <option value="M">Male 男</option>
+            <option value="F">Female 女</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Religion 宗教 *</label>
+          <select id="religion" onchange="onReligionChange()">
+            <option value="">Select / 選擇</option>
+            <option value="M">Muslim 穆斯林</option>
+            <option value="B">Buddhist 佛教</option>
+            <option value="C">Christian 基督徒</option>
+          </select>
+        </div>
+        <div class="form-group" id="sectGroup" style="display:none">
+          <label>Muslim sect 教派 *</label>
+          <select id="sect" onchange="updateID()">
+            <option value="">Select sect</option>
+            <option value="S">Sunni 遜尼派</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Country 國籍 *</label>
+          <select id="country" onchange="updateID()">
+            <option value="">Select / 選擇</option>
+            <option value="M">Malaysia 馬來西亞</option>
+            <option value="T">Taiwan 台灣</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>Years of education 教育年數 * (11–30)</label>
+          <select id="edu" onchange="checkForm()">
+            <option value="">Select years / 選擇年數</option>
+            <!-- Generated by JS -->
+          </select>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Brain injury / mental illness -->
+      <div style="margin-bottom: 1rem;">
+        <div style="font-size:11px;color:#999;font-weight:500;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Brain injury or psychiatric diagnosis 腦傷或精神疾病 *</div>
+        <div class="check-row">
+          <input type="checkbox" id="brainNo" name="brain" value="no" onchange="onBrainChange(this)">
+          <label for="brainNo">No 無</label>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="brainYes" name="brain" value="yes" onchange="onBrainChange(this)">
+          <label for="brainYes">Yes 有</label>
+        </div>
+      </div>
+
+      <!-- Substance use / major illness -->
+      <div>
+        <div style="font-size:11px;color:#999;font-weight:500;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Substance use or major illness 物質使用或重大傷病 *</div>
+        <div class="check-row">
+          <input type="checkbox" id="substanceNo" name="substance" value="no" onchange="onSubstanceChange(this)">
+          <label for="substanceNo">No 無</label>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="substanceYes" name="substance" value="yes" onchange="onSubstanceChange(this)">
+          <label for="substanceYes">Yes 有 — please specify:</label>
+        </div>
+        <div class="conditional-input" id="substanceDetail">
+          <input type="text" id="substanceText" placeholder="Please describe / 請描述" oninput="checkForm()">
+        </div>
+      </div>
+
+      <div class="age-error" id="ageError">Sorry, this study is only open to participants aged 18–60. / 本研究僅開放18至60歲參與者。</div>
+      <div class="id-preview" id="idPreview">
+        <div>
+          <div class="id-label">Your participant ID will be</div>
+          <div class="id-value" id="idValue"></div>
+        </div>
+      </div>
+      <div class="error-msg" id="errorMsg">Something went wrong. Please try again or contact <a href="mailto:zilin0426@gmail.com">zilin0426@gmail.com</a></div>
+    </div>
+
+    <button class="btn-primary" id="step2Btn" disabled onclick="goStep3()">Continue to questionnaire</button>
+    <p class="contact">Questions? Contact <a href="mailto:zilin0426@gmail.com">zilin0426@gmail.com</a></p>
+  </div>
+
+  <!-- Step 3: CRSi-7 Questionnaire -->
+  <div id="step3" class="step">
+    <div class="progress-bar-wrap"><div class="progress-bar" style="width:75%"></div></div>
+    <div class="hero">
+      <div class="badge">Step 3 of 3</div>
+      <h1>Religiosity Questionnaire<br>宗教信仰量表</h1>
+      <p>Please answer all 7 questions based on your personal experience. There are no right or wrong answers.<br>請根據您的個人經驗回答以下7題，沒有對錯之分。</p>
+    </div>
+
+    <div class="card">
+      <p class="q-sub" style="margin-bottom:1.5rem;">
+        Scale: &nbsp;<strong>1</strong> Never 從不 &nbsp;·&nbsp; <strong>2</strong> Rarely 甚少 &nbsp;·&nbsp; <strong>3</strong> Occasionally 有時 &nbsp;·&nbsp; <strong>4</strong> Often 時常 &nbsp;·&nbsp; <strong>5</strong> Very Often 經常
+      </p>
+
+      <!-- Q1 -->
+      <div class="question-block" id="qb1">
+        <div class="q-text">1. To what extent do you believe that God or something divine exists?<br><span style="color:#888;font-size:13px;font-weight:400;">在多大程度上相信神或神靈的存在？</span></div>
+        <div class="likert" id="q1">
+          <div class="likert-item"><input type="radio" name="q1" value="1" id="q1o1" onchange="checkQuestions()"><label for="q1o1">1<span>Never</span></label></div>
+          <div class="likert-item"><input type="radio" name="q1" value="2" id="q1o2" onchange="checkQuestions()"><label for="q1o2">2<span>Rarely</span></label></div>
+          <div class="likert-item"><input type="radio" name="q1" value="3" id="q1o3" onchange="checkQuestions()"><label for="q1o3">3<span>Occasionally</span></label></div>
+          <div class="likert-item"><input type="radio" name="q1" value="4" id="q1o4" onchange="checkQuestions()"><label for="q1o4">4<span>Often</span></label></div>
+          <div class="likert-item"><input type="radio" name="q1" value="5" id="q1o5" onchange="checkQuestions()"><label for="q1o5">5<span>Very Often</span></label></div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="question-block" id="qb2">
+        <div class="q-text">2. How often do you pray?<br><span style="color:#888;font-size:13px;font-weight:400;">您多久禱告一次？</span></div>
+        <div class="likert" id="q2">
+          <div class="likert-item"><input type="radio" name="q2" value="1" id="q2o1" onchange="checkQuestions()"><label for="q2o1">1<span>Never</span></label></div>
+          <div class="likert-item"><input type="radio" name="q2" value="2" id="q2o2" onchange="checkQuestions()"><label for="q2o2">2<span>Rarely</span></label></div>
+          <div class="likert-item"><input type="radio" name="q2" value="3" id="q2o3" onchange="checkQuestions()"><label for="q2o3">3<span>Occasionally</span></label></div>
+          <div class="likert-item"><input type="radio" name="q2" value="4" id="q2o4" onchange="checkQuestions()"><label for="q2o4">4<span>Often</span></label></div>
+          <div class="likert-item"><input type="radio" name="q2" value="5" id="q2o5" onchange="checkQuestions()"><label for="q2o5">5<span>Very Often</span></label></div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="question-block" id="qb3">
+        <div class="q-text">3. How often do you meditate?<br><span style="color:#888;font-size:13px;font-weight:400;">您多久冥想一次？</span></div>
+        <div class="likert" id="q3">
+          <div class="likert-item"><input type="radio" name="q3" value="1" id="q3o1" onchange="checkQuestions()"><label for="q3o1">1<span>Never</span></label></div>
+          <div class="likert-item"><input type="radio" name="q3" value="2" id="q3o2" onchange="checkQuestions()"><label for="q3o2">2<span>Rarely</span></label></div>
+          <div class="likert-item"><input type="radio" name="q3" value="3" id="q3o3" onchange="checkQuestions()"><label for="q3o3">3<span>Occasionally</span></label></div>
+          <div class="likert-item"><input type="radio" name="q3" value="4" id="q3o4" onchange="checkQuestions()"><label for="q3o4">4<span>Often</span></label></div>
+          <div class="likert-item"><input type="radio" name="q3" value="5" id="q3o5" onchange="checkQuestions()"><label for="q3o5">5<span>Very Often</span></label></div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="question-block" id="qb4">
+        <div class="q-text">4. How often do you take part in religious services?<br><span style="color:#888;font-size:13px;font-weight:400;">您多久參與一次宗教儀式？</span></div>
+        <div class="likert" id="q4">
+          <div class="likert-item"><input type="radio" name="q4" value="1" id="q4o1" onchange="checkQuestions()"><label for="q4o1">1<span>Never</span></label></div>
+          <div class="likert-item"><input type="radio" name="q4" value="2" id="q4o2" onchange="checkQuestions()"><label for="q4o2">2<span>Rarely</span></label></div>
+          <div class="likert-item"><input type="radio" name="q4" value="3" id="q4o3" onchange="checkQuestions()"><label for="q4o3">3<span>Occasionally</span></label></div>
+          <div class="likert-item"><input type="radio" name="q4" value="4" id="q4o4" onchange="checkQuestions()"><label for="q4o4">4<span>Often</span></label></div>
+          <div class="likert-item"><input type="radio" name="q4" value="5" id="q4o5" onchange="checkQuestions()"><label for="q4o5">5<span>Very Often</span></label></div>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="question-block" id="qb5">
+        <div class="q-text">5. How often do you think about religious issues?<br><span style="color:#888;font-size:13px;font-weight:400;">您多久思考一次與宗教相關的事情？</span></div>
+        <div class="likert" id="q5">
+          <div class="likert-item"><input type="radio" name="q5" value="1" id="q5o1" onchange="checkQuestions()"><label for="q5o1">1<span>Never</span></label></div>
+          <div class="likert-item"><input type="radio" name="q5" value="2" id="q5o2" onchange="checkQuestions()"><label for="q5o2">2<span>Rarely</span></label></div>
+          <div class="likert-item"><input type="radio" name="q5" value="3" id="q5o3" onchange="checkQuestions()"><label for="q5o3">3<span>Occasionally</span></label></div>
+          <div class="likert-item"><input type="radio" name="q5" value="4" id="q5o4" onchange="checkQuestions()"><label for="q5o4">4<span>Often</span></label></div>
+          <div class="likert-item"><input type="radio" name="q5" value="5" id="q5o5" onchange="checkQuestions()"><label for="q5o5">5<span>Very Often</span></label></div>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="question-block" id="qb6">
+        <div class="q-text">6. How often do you experience situations in which you have the feeling that God or something divine intervenes in your life?<br><span style="color:#888;font-size:13px;font-weight:400;">您多久經歷一次神或神靈在影響你的生活？</span></div>
+        <div class="likert" id="q6">
+          <div class="likert-item"><input type="radio" name="q6" value="1" id="q6o1" onchange="checkQuestions()"><label for="q6o1">1<span>Never</span></label></div>
+          <div class="likert-item"><input type="radio" name="q6" value="2" id="q6o2" onchange="checkQuestions()"><label for="q6o2">2<span>Rarely</span></label></div>
+          <div class="likert-item"><input type="radio" name="q6" value="3" id="q6o3" onchange="checkQuestions()"><label for="q6o3">3<span>Occasionally</span></label></div>
+          <div class="likert-item"><input type="radio" name="q6" value="4" id="q6o4" onchange="checkQuestions()"><label for="q6o4">4<span>Often</span></label></div>
+          <div class="likert-item"><input type="radio" name="q6" value="5" id="q6o5" onchange="checkQuestions()"><label for="q6o5">5<span>Very Often</span></label></div>
+        </div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="question-block" id="qb7">
+        <div class="q-text">7. How often do you experience situations in which you have the feeling that God or something divine is present?<br><span style="color:#888;font-size:13px;font-weight:400;">您多久經歷一次神或其他聖靈的同在？</span></div>
+        <div class="likert" id="q7">
+          <div class="likert-item"><input type="radio" name="q7" value="1" id="q7o1" onchange="checkQuestions()"><label for="q7o1">1<span>Never</span></label></div>
+          <div class="likert-item"><input type="radio" name="q7" value="2" id="q7o2" onchange="checkQuestions()"><label for="q7o2">2<span>Rarely</span></label></div>
+          <div class="likert-item"><input type="radio" name="q7" value="3" id="q7o3" onchange="checkQuestions()"><label for="q7o3">3<span>Occasionally</span></label></div>
+          <div class="likert-item"><input type="radio" name="q7" value="4" id="q7o4" onchange="checkQuestions()"><label for="q7o4">4<span>Often</span></label></div>
+          <div class="likert-item"><input type="radio" name="q7" value="5" id="q7o5" onchange="checkQuestions()"><label for="q7o5">5<span>Very Often</span></label></div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-primary" id="submitBtn" disabled onclick="submitForm()">Submit &amp; start the task</button>
+    <p class="contact">Questions? Contact <a href="mailto:zilin0426@gmail.com">zilin0426@gmail.com</a></p>
+  </div>
+
+  <!-- Step 4: Success -->
+  <div id="step4" class="step">
+    <div class="progress-bar-wrap"><div class="progress-bar" style="width:100%"></div></div>
+    <div class="success">
+      <div class="success-icon">&#10003;</div>
+      <h2>Registration complete!</h2>
+      <p>Your participant ID is:</p>
+      <div class="id-chip" id="finalID"></div>
+      <p>Your data has been recorded. You will be redirected to the task automatically.</p>
+      <div class="manual-link-box">
+        If you are not redirected automatically, <a id="manualLink" href="#">click here to start the task</a>.
+      </div>
+      <div class="countdown" id="countdown">Redirecting in 3 seconds...</div>
+    </div>
+  </div>
+
+</div>
+<script>
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx2WzvDhos2N9rz-ZXrZMriQs32ok8nZG7L8r1p8RZUVGc3Yni0LhckEe-qhs9UV7I-rA/exec';
+
+// Populate education years 11–30
+const eduSel = document.getElementById('edu');
+for (let y = 11; y <= 30; y++) {
+  const opt = document.createElement('option');
+  opt.value = y;
+  opt.textContent = y + ' years / 年';
+  eduSel.appendChild(opt);
+}
+
+// Step 1 consent
+const ck1 = document.getElementById('ck1');
+const ck2 = document.getElementById('ck2');
+const nextBtn = document.getElementById('nextBtn');
+function checkConsent() { nextBtn.disabled = !(ck1.checked && ck2.checked); }
+ck1.addEventListener('change', checkConsent);
+ck2.addEventListener('change', checkConsent);
+
+function goStep2() {
+  document.getElementById('step1').classList.remove('active');
+  document.getElementById('step2').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// Age calculation
+function getAge(birthVal) {
+  const today = new Date();
+  const birth = new Date(birthVal);
+  let age = today.getFullYear() - birth.getFullYear();
+  const m = today.getMonth() - birth.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+  return age;
+}
+
+function checkAge() {
+  const birthVal = document.getElementById('birth').value;
+  const ageError = document.getElementById('ageError');
+  if (birthVal) {
+    const age = getAge(birthVal);
+    ageError.style.display = (age < 18 || age > 60) ? 'block' : 'none';
+  }
+  checkForm();
+}
+
+// Religion → show Sunni sect for Muslim only
+function onReligionChange() {
+  const rel = document.getElementById('religion').value;
+  const sectGroup = document.getElementById('sectGroup');
+  if (rel === 'M') {
+    sectGroup.style.display = 'flex';
+    document.getElementById('sect').value = 'S'; // auto-select Sunni
+  } else {
+    sectGroup.style.display = 'none';
+    document.getElementById('sect').value = '';
+  }
+  updateID();
+}
+
+// Participant ID: Country + Religion + Gender _ Nickname
+// Country: M=Malaysia, T=Taiwan
+// Religion: M=Muslim, B=Buddhist, C=Christian
+// Gender: M=Male, F=Female
+// Example: MMM_Ali, TCF_Janice
+function updateID() {
+  const country = document.getElementById('country').value;
+  const rel = document.getElementById('religion').value;
+  const gen = document.getElementById('gender').value;
+  const nick = document.getElementById('nickname').value.trim();
+  if (country && rel && gen && nick) {
+    const id = country + rel + gen + '_' + nick;
+    document.getElementById('idValue').textContent = id;
+    document.getElementById('idPreview').style.display = 'flex';
+  } else {
+    document.getElementById('idPreview').style.display = 'none';
+  }
+  checkForm();
+}
+
+// Brain injury checkbox — mutually exclusive
+function onBrainChange(el) {
+  if (el.id === 'brainNo' && el.checked) {
+    document.getElementById('brainYes').checked = false;
+  } else if (el.id === 'brainYes' && el.checked) {
+    document.getElementById('brainNo').checked = false;
+  }
+  checkForm();
+}
+
+// Substance checkbox — mutually exclusive + conditional text
+function onSubstanceChange(el) {
+  if (el.id === 'substanceNo' && el.checked) {
+    document.getElementById('substanceYes').checked = false;
+    document.getElementById('substanceDetail').style.display = 'none';
+    document.getElementById('substanceText').value = '';
+  } else if (el.id === 'substanceYes' && el.checked) {
+    document.getElementById('substanceNo').checked = false;
+    document.getElementById('substanceDetail').style.display = 'block';
+  }
+  checkForm();
+}
+
+function checkForm() {
+  const country = document.getElementById('country').value;
+  const rel = document.getElementById('religion').value;
+  const gen = document.getElementById('gender').value;
+  const nick = document.getElementById('nickname').value.trim();
+  const birthVal = document.getElementById('birth').value;
+  const edu = document.getElementById('edu').value;
+  const ageOk = birthVal && getAge(birthVal) >= 18 && getAge(birthVal) <= 60;
+
+  // Brain: one must be checked
+  const brainOk = document.getElementById('brainNo').checked || document.getElementById('brainYes').checked;
+
+  // Substance: one must be checked; if yes, text must be filled
+  const subNo = document.getElementById('substanceNo').checked;
+  const subYes = document.getElementById('substanceYes').checked;
+  const subText = document.getElementById('substanceText').value.trim();
+  const substanceOk = subNo || (subYes && subText.length > 0);
+
+  // Muslim must have sect selected
+  const sectOk = rel !== 'M' || document.getElementById('sect').value === 'S';
+
+  document.getElementById('step2Btn').disabled = !(country && rel && gen && nick && birthVal && edu && ageOk && brainOk && substanceOk && sectOk);
+}
+
+function goStep3() {
+  document.getElementById('step2').classList.remove('active');
+  document.getElementById('step3').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// Check all 7 questions answered
+function checkQuestions() {
+  let allAnswered = true;
+  for (let i = 1; i <= 7; i++) {
+    if (!document.querySelector('input[name="q' + i + '"]:checked')) {
+      allAnswered = false;
+      break;
+    }
+  }
+  document.getElementById('submitBtn').disabled = !allAnswered;
+}
+
+// Submit
+async function submitForm() {
+  const country = document.getElementById('country').value;
+  const rel = document.getElementById('religion').value;
+  const gen = document.getElementById('gender').value;
+  const nick = document.getElementById('nickname').value.trim();
+  const birth = document.getElementById('birth').value;
+  const edu = document.getElementById('edu').value;
+  const participantID = country + rel + gen + '_' + nick;
+
+  const relLabels = { M: 'Muslim', B: 'Buddhist', C: 'Christian' };
+  const genLabels = { M: 'Male', F: 'Female' };
+  const countryLabels = { M: 'Malaysia', T: 'Taiwan' };
+
+  const brainVal = document.getElementById('brainYes').checked ? 'Yes' : 'No';
+  const subYes = document.getElementById('substanceYes').checked;
+  const substanceVal = subYes ? ('Yes: ' + document.getElementById('substanceText').value.trim()) : 'No';
+
+  // CRSi-7 scores
+  const crsi = {};
+  for (let i = 1; i <= 7; i++) {
+    crsi['q' + i] = document.querySelector('input[name="q' + i + '"]:checked').value;
+  }
+
+  const testLink = 'https://peblhub.online/runtime/pebl-launcher.html?test=iowa&token=STUDY_7805AAADD57BD31348BDBB9EFD0AD923&scriptFile=iowa.pbl&language=en&participant=' + participantID;
+
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').textContent = 'Submitting...';
+
+  try {
+    const params = new URLSearchParams({
+      participantID,
+      country: countryLabels[country],
+      religion: relLabels[rel],
+      gender: genLabels[gen],
+      nickname: nick,
+      birth,
+      education: edu,
+      brainInjury: brainVal,
+      substanceUse: substanceVal,
+      crsi_q1: crsi.q1,
+      crsi_q2: crsi.q2,
+      crsi_q3: crsi.q3,
+      crsi_q4: crsi.q4,
+      crsi_q5: crsi.q5,
+      crsi_q6: crsi.q6,
+      crsi_q7: crsi.q7,
+      timestamp: new Date().toISOString(),
+      testLink
+    });
+    await fetch(APPS_SCRIPT_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
+  } catch (e) {
+    console.warn('Sheet save error:', e);
+  }
+
+  document.getElementById('finalID').textContent = participantID;
+  document.getElementById('manualLink').href = testLink;
+  document.getElementById('step3').classList.remove('active');
+  document.getElementById('step4').classList.add('active');
+  window.scrollTo(0, 0);
+
+  let secs = 3;
+  const countdownEl = document.getElementById('countdown');
+  const timer = setInterval(() => {
+    secs--;
+    if (secs <= 0) {
+      clearInterval(timer);
+      countdownEl.textContent = 'Redirecting now...';
+      window.location.href = testLink;
+    } else {
+      countdownEl.textContent = 'Redirecting in ' + secs + ' second' + (secs !== 1 ? 's' : '') + '...';
+    }
+  }, 1000);
+}
+</script>
+</body>
+</html>
