@@ -163,28 +163,16 @@
             <option value="F">Female 女</option>
           </select>
         </div>
-        <div class="form-group">
-          <label>Religion 宗教 *</label>
-          <select id="religion" onchange="onReligionChange()">
+       <div class="form-group full">
+          <label>Country &amp; Religion 國籍與宗教 *</label>
+          <select id="countryReligion" onchange="updateID()">
             <option value="">Select / 選擇</option>
-            <option value="M">Muslim 穆斯林</option>
-            <option value="B">Buddhist 佛教</option>
-            <option value="C">Christian 基督徒</option>
-          </select>
-        </div>
-        <div class="form-group" id="sectGroup" style="display:none">
-          <label>Muslim sect 教派 *</label>
-          <select id="sect" onchange="updateID()">
-            <option value="">Select sect</option>
-            <option value="S">Sunni 遜尼派</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Country 國籍 *</label>
-          <select id="country" onchange="updateID()">
-            <option value="">Select / 選擇</option>
-            <option value="M">Malaysia 馬來西亞</option>
-            <option value="T">Taiwan 台灣</option>
+            <option value="TB">Taiwan - Buddhist 台灣-佛教</option>
+            <option value="TC">Taiwan - Christian 台灣-基督教</option>
+            <option value="TI">Taiwan - Indigenous 台灣-原住民</option>
+            <option value="TA">Taiwan - Atheist 台灣-無神論者</option>
+            <option value="MB">Malaysia - Buddhist 馬來西亞-佛教</option>
+            <option value="MM">Malaysia - Muslim 馬來西亞-穆斯林</option>
           </select>
         </div>
         <div class="form-group full">
@@ -207,7 +195,10 @@
         </div>
         <div class="check-row">
           <input type="checkbox" id="brainYes" name="brain" value="yes" onchange="onBrainChange(this)">
-          <label for="brainYes">Yes 有</label>
+          <label for="brainYes">Yes 有 — please specify:</label>
+        </div>
+        <div class="conditional-input" id="brainDetail">
+          <input type="text" id="brainText" placeholder="Please describe / 請描述" oninput="checkForm()">
         </div>
       </div>
 
@@ -407,31 +398,17 @@ function checkAge() {
   checkForm();
 }
 
-// Religion → show Sunni sect for Muslim only
-function onReligionChange() {
-  const rel = document.getElementById('religion').value;
-  const sectGroup = document.getElementById('sectGroup');
-  if (rel === 'M') {
-    sectGroup.style.display = 'flex';
-    document.getElementById('sect').value = 'S'; // auto-select Sunni
-  } else {
-    sectGroup.style.display = 'none';
-    document.getElementById('sect').value = '';
-  }
-  updateID();
-}
-
 // Participant ID: Country + Religion + Gender _ Nickname
-// Country: M=Malaysia, T=Taiwan
-// Religion: M=Muslim, B=Buddhist, C=Christian
+// countryReligion value: first char = Country (T=Taiwan, M=Malaysia), second char = Religion (B/C/I/A/M)
 // Gender: M=Male, F=Female
-// Example: MMM_Ali, TCF_Janice
+// Example: TBM_Alex, MMF_Janice
 function updateID() {
-  const country = document.getElementById('country').value;
-  const rel = document.getElementById('religion').value;
+  const cr = document.getElementById('countryReligion').value;
   const gen = document.getElementById('gender').value;
   const nick = document.getElementById('nickname').value.trim();
-  if (country && rel && gen && nick) {
+  if (cr && gen && nick) {
+    const country = cr.charAt(0);
+    const rel = cr.charAt(1);
     const id = country + rel + gen + '_' + nick;
     document.getElementById('idValue').textContent = id;
     document.getElementById('idPreview').style.display = 'flex';
@@ -441,12 +418,15 @@ function updateID() {
   checkForm();
 }
 
-// Brain injury checkbox — mutually exclusive
+// Brain injury checkbox — mutually exclusive + conditional text
 function onBrainChange(el) {
   if (el.id === 'brainNo' && el.checked) {
     document.getElementById('brainYes').checked = false;
+    document.getElementById('brainDetail').style.display = 'none';
+    document.getElementById('brainText').value = '';
   } else if (el.id === 'brainYes' && el.checked) {
     document.getElementById('brainNo').checked = false;
+    document.getElementById('brainDetail').style.display = 'block';
   }
   checkForm();
 }
@@ -465,27 +445,24 @@ function onSubstanceChange(el) {
 }
 
 function checkForm() {
-  const country = document.getElementById('country').value;
-  const rel = document.getElementById('religion').value;
+  const cr = document.getElementById('countryReligion').value;
   const gen = document.getElementById('gender').value;
   const nick = document.getElementById('nickname').value.trim();
   const birthVal = document.getElementById('birth').value;
   const edu = document.getElementById('edu').value;
   const ageOk = birthVal && getAge(birthVal) >= 18 && getAge(birthVal) <= 60;
 
-  // Brain: one must be checked
-  const brainOk = document.getElementById('brainNo').checked || document.getElementById('brainYes').checked;
+  const brainNo = document.getElementById('brainNo').checked;
+  const brainYes = document.getElementById('brainYes').checked;
+  const brainText = document.getElementById('brainText').value.trim();
+  const brainOk = brainNo || (brainYes && brainText.length > 0);
 
-  // Substance: one must be checked; if yes, text must be filled
   const subNo = document.getElementById('substanceNo').checked;
   const subYes = document.getElementById('substanceYes').checked;
   const subText = document.getElementById('substanceText').value.trim();
   const substanceOk = subNo || (subYes && subText.length > 0);
 
-  // Muslim must have sect selected
-  const sectOk = rel !== 'M' || document.getElementById('sect').value === 'S';
-
-  document.getElementById('step2Btn').disabled = !(country && rel && gen && nick && birthVal && edu && ageOk && brainOk && substanceOk && sectOk);
+  document.getElementById('step2Btn').disabled = !(cr && gen && nick && birthVal && edu && ageOk && brainOk && substanceOk);
 }
 
 function goStep3() {
@@ -508,19 +485,21 @@ function checkQuestions() {
 
 // Submit
 async function submitForm() {
-  const country = document.getElementById('country').value;
-  const rel = document.getElementById('religion').value;
+  const cr = document.getElementById('countryReligion').value;
+  const country = cr.charAt(0);
+  const rel = cr.charAt(1);
   const gen = document.getElementById('gender').value;
   const nick = document.getElementById('nickname').value.trim();
   const birth = document.getElementById('birth').value;
   const edu = document.getElementById('edu').value;
   const participantID = country + rel + gen + '_' + nick;
 
-  const relLabels = { M: 'Muslim', B: 'Buddhist', C: 'Christian' };
+  const relLabels = { B: 'Buddhist', C: 'Christian', I: 'Indigenous', A: 'Atheist', M: 'Muslim' };
   const genLabels = { M: 'Male', F: 'Female' };
   const countryLabels = { M: 'Malaysia', T: 'Taiwan' };
 
-  const brainVal = document.getElementById('brainYes').checked ? 'Yes' : 'No';
+  const brainYes = document.getElementById('brainYes').checked;
+  const brainVal = brainYes ? ('Yes: ' + document.getElementById('brainText').value.trim()) : 'No';
   const subYes = document.getElementById('substanceYes').checked;
   const substanceVal = subYes ? ('Yes: ' + document.getElementById('substanceText').value.trim()) : 'No';
 
@@ -532,6 +511,7 @@ async function submitForm() {
 
   const testLinkZh = 'https://donkey0426.github.io/pebl/?participant=' + encodeURIComponent(participantID) + '&lang=zh';
   const testLinkEn = 'https://donkey0426.github.io/pebl/?participant=' + encodeURIComponent(participantID) + '&lang=en';
+
   document.getElementById('submitBtn').disabled = true;
   document.getElementById('submitBtn').textContent = 'Submitting...';
 
@@ -553,8 +533,7 @@ async function submitForm() {
       crsi_q5: crsi.q5,
       crsi_q6: crsi.q6,
       crsi_q7: crsi.q7,
-      timestamp: new Date().toISOString(),
-      testLink
+      timestamp: new Date().toISOString()
     });
     await fetch(APPS_SCRIPT_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
   } catch (e) {
