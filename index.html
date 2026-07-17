@@ -352,17 +352,17 @@
       <h2>Registration complete!</h2>
       <p>Your participant ID is:</p>
       <div class="id-chip" id="finalID"></div>
-      <p>Your data has been recorded. You will be redirected to the task automatically.</p>
-      <div class="manual-link-box">
-        If you are not redirected automatically, <a id="manualLink" href="#">click here to start the task</a>.
+      <p>Your data has been recorded. Please choose your preferred language to begin.<br>請選擇語言開始測驗。</p>
+      <div class="manual-link-box" style="display:flex; gap:16px; justify-content:center; margin-top:20px;">
+        <a id="btnZh" class="btn-primary" href="#" style="text-decoration:none; display:inline-block;">中文版開始</a>
+        <a id="btnEn" class="btn-primary" href="#" style="text-decoration:none; display:inline-block;">English</a>
       </div>
-      <div class="countdown" id="countdown">Redirecting in 3 seconds...</div>
     </div>
   </div>
 
 </div>
 <script>
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx2WzvDhos2N9rz-ZXrZMriQs32ok8nZG7L8r1p8RZUVGc3Yni0LhckEe-qhs9UV7I-rA/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmzLzlVqizQH6yGk4FQ2YHSXPRIinEV_IvIanY7MsPjZS1ywl1GdZec6TAwt89OOlqqg/exec';
 
 // Populate education years 11–30
 const eduSel = document.getElementById('edu');
@@ -530,8 +530,8 @@ async function submitForm() {
     crsi['q' + i] = document.querySelector('input[name="q' + i + '"]:checked').value;
   }
 
-  const testLink = 'https://peblhub.online/runtime/pebl-launcher.html?test=iowa&token=STUDY_7805AAADD57BD31348BDBB9EFD0AD923&scriptFile=iowa.pbl&language=en&participant=' + participantID;
-
+  const testLinkZh = 'https://donkey0426.github.io/pebl/?participant=' + encodeURIComponent(participantID) + '&lang=zh';
+  const testLinkEn = 'https://donkey0426.github.io/pebl/?participant=' + encodeURIComponent(participantID) + '&lang=en';
   document.getElementById('submitBtn').disabled = true;
   document.getElementById('submitBtn').textContent = 'Submitting...';
 
@@ -562,23 +562,11 @@ async function submitForm() {
   }
 
   document.getElementById('finalID').textContent = participantID;
-  document.getElementById('manualLink').href = testLink;
+  document.getElementById('btnZh').href = testLinkZh;
+  document.getElementById('btnEn').href = testLinkEn;
   document.getElementById('step3').classList.remove('active');
   document.getElementById('step4').classList.add('active');
   window.scrollTo(0, 0);
-
-  let secs = 3;
-  const countdownEl = document.getElementById('countdown');
-  const timer = setInterval(() => {
-    secs--;
-    if (secs <= 0) {
-      clearInterval(timer);
-      countdownEl.textContent = 'Redirecting now...';
-      window.location.href = testLink;
-    } else {
-      countdownEl.textContent = 'Redirecting in ' + secs + ' second' + (secs !== 1 ? 's' : '') + '...';
-    }
-  }, 1000);
 }
 </script>
 </body>
