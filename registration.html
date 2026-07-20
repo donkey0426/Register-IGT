@@ -4,26 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Decision-Making Research — Registration</title>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=Noto+Serif+TC:wght@400;500&family=Noto+Sans+TC:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: #f5f4f0; color: #1a1a1a; min-height: 100vh; }
+  body { font-family: 'DM Sans', 'Noto Sans TC', sans-serif; background: #f5f4f0; color: #1a1a1a; min-height: 100vh; }
   .wrap { max-width: 660px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
   .hero { text-align: center; padding: 2.5rem 1rem 2rem; border-bottom: 1px solid #e0ddd6; margin-bottom: 2rem; }
   .badge { display: inline-block; background: #e8f0fb; color: #2563eb; font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 20px; margin-bottom: 1rem; letter-spacing: .03em; }
-  .hero h1 { font-family: 'Crimson Pro', serif; font-size: 30px; font-weight: 600; line-height: 1.3; margin-bottom: .75rem; color: #111; }
+  .hero h1 { font-family: 'Crimson Pro', 'Noto Serif TC', serif; font-size: 30px; font-weight: 500; line-height: 1.3; margin-bottom: .75rem; color: #111; }
   .hero p { font-size: 14px; color: #666; line-height: 1.8; max-width: 500px; margin: 0 auto; }
   .card { background: #fff; border: 1px solid #e8e5de; border-radius: 14px; padding: 1.5rem; margin-bottom: 1.25rem; }
-  .card h2 { font-family: 'Crimson Pro', serif; font-size: 19px; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; color: #111; }
+  .card h2 { font-family: 'Crimson Pro', 'Noto Serif TC', serif; font-size: 19px; font-weight: 500; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; color: #111; }
   .icon { width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; flex-shrink: 0; background: #e8f0fb; color: #2563eb; }
-  .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .detail-item label { font-size: 11px; color: #999; display: block; margin-bottom: 3px; text-transform: uppercase; letter-spacing: .05em; }
-  .detail-item span { font-size: 14px; font-weight: 500; color: #222; }
-  .warn-note { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #92400e; margin-top: 1rem; line-height: 1.5; }
+  .detail-grid { display: flex; flex-direction: column; gap: .85rem; }
+  .detail-item { display: flex; align-items: flex-start; gap: 12px; }
+  .detail-item.full { }
+  .detail-item label { font-size: 11px; color: #222; font-weight: 600; display: block; text-transform: uppercase; letter-spacing: .05em; flex-shrink: 0; width: 100px; padding-top: 2px; }
+  .detail-item span { font-size: 14px; font-weight: 500; color: #999; line-height: 1.6; }
+  .detail-item.full { grid-column: 1 / -1; }
   .rights-list, .consent-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
   .rights-list li, .consent-list li { font-size: 13px; line-height: 1.7; color: #555; padding-left: 18px; position: relative; }
   .rights-list li::before { content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: #ccc; }
-  .consent-list li::before { content: '—'; position: absolute; left: 0; top: 0; color: #bbb; }
+  .consent-list li::before { content: '·'; position: absolute; left: 0; top: 0; color: #bbb; font-weight: 700; }
   .agree-box { background: #f9f8f5; border: 1px solid #e8e5de; border-radius: 8px; padding: 1rem; margin-top: 1rem; display: flex; align-items: flex-start; gap: 10px; }
   .agree-box input[type=checkbox] { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; cursor: pointer; accent-color: #1a1a1a; }
   .agree-box label { font-size: 13px; line-height: 1.6; cursor: pointer; color: #444; }
@@ -31,12 +33,12 @@
   .form-group { display: flex; flex-direction: column; gap: 6px; }
   .form-group.full { grid-column: 1 / -1; }
   .form-group label { font-size: 11px; color: #999; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
-  .form-group input, .form-group select { font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 9px 12px; border: 1px solid #e0ddd6; border-radius: 8px; background: #fff; color: #1a1a1a; width: 100%; transition: border-color .15s; }
+  .form-group input, .form-group select { font-family: 'DM Sans', 'Noto Sans TC', sans-serif; font-size: 14px; padding: 9px 12px; border: 1px solid #e0ddd6; border-radius: 8px; background: #fff; color: #1a1a1a; width: 100%; transition: border-color .15s; }
   .form-group input:focus, .form-group select:focus { outline: none; border-color: #999; }
   .id-preview { background: #f0f9f4; border: 1px solid #bbf0d4; border-radius: 8px; padding: 12px 16px; margin-top: 1.25rem; display: none; align-items: center; gap: 12px; }
   .id-preview .id-label { font-size: 11px; color: #4a7c59; text-transform: uppercase; letter-spacing: .05em; }
   .id-preview .id-value { font-family: monospace; font-size: 16px; font-weight: 600; color: #166534; letter-spacing: .06em; margin-top: 2px; }
-  .btn-primary { width: 100%; padding: 13px; background: #1a1a1a; color: #fff; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; margin-top: 1.5rem; transition: opacity .2s; }
+  .btn-primary { width: 100%; padding: 13px; background: #1a1a1a; color: #fff; border: none; border-radius: 8px; font-family: 'DM Sans', 'Noto Sans TC', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; margin-top: 1.5rem; transition: opacity .2s; }
   .btn-primary:hover { opacity: .85; }
   .btn-primary:disabled { opacity: .35; cursor: not-allowed; }
   .contact { text-align: center; font-size: 12px; color: #999; margin-top: 1.5rem; }
@@ -45,7 +47,7 @@
   .step.active { display: block; }
   .success { text-align: center; padding: 3rem 1rem; }
   .success-icon { width: 56px; height: 56px; background: #f0f9f4; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 26px; color: #166534; }
-  .success h2 { font-family: 'Crimson Pro', serif; font-size: 26px; margin-bottom: 1rem; color: #111; }
+  .success h2 { font-family: 'Crimson Pro', 'Noto Serif TC', serif; font-size: 26px; font-weight: 500; margin-bottom: 1rem; color: #111; }
   .success p { font-size: 14px; color: #666; margin-bottom: .75rem; line-height: 1.8; }
   .id-chip { display: inline-block; font-family: monospace; font-size: 18px; font-weight: 600; color: #166534; background: #f0f9f4; border: 1px solid #bbf0d4; border-radius: 8px; padding: 6px 18px; margin: .5rem 0 1.25rem; letter-spacing: .06em; }
   .manual-link-box { background: #f9f8f5; border: 1px solid #e8e5de; border-radius: 8px; padding: 12px 16px; margin: 1rem auto; max-width: 500px; font-size: 12px; color: #666; }
@@ -58,7 +60,7 @@
   .check-row input[type=checkbox] { width: 15px; height: 15px; flex-shrink: 0; margin-top: 3px; cursor: pointer; accent-color: #1a1a1a; }
   .check-row label { font-size: 13px; line-height: 1.6; color: #444; cursor: pointer; }
   .conditional-input { margin-top: 8px; display: none; }
-  .conditional-input input { font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 8px 12px; border: 1px solid #e0ddd6; border-radius: 8px; width: 100%; }
+  .conditional-input input { font-family: 'DM Sans', 'Noto Sans TC', sans-serif; font-size: 13px; padding: 8px 12px; border: 1px solid #e0ddd6; border-radius: 8px; width: 100%; }
   .conditional-input input:focus { outline: none; border-color: #999; }
   .section-divider { border: none; border-top: 1px solid #e8e5de; margin: 1rem 0; }
   /* CRSi-7 questionnaire */
@@ -83,52 +85,35 @@
     <div class="progress-bar-wrap"><div class="progress-bar" style="width:25%"></div></div>
     <div class="hero">
       <div class="badge">Research Study</div>
-      <h1>Decision-Making Research<br>Participants Wanted</h1>
-      <p>Hi! I am currently conducting research on decision-making for my master's project. This study aims to explore whether individuals from different cultural backgrounds exhibit different patterns of decision-making.</p>
+      <h1>Decision-Making Research<br>Participants Wanted<br>決策研究　誠徵受試者</h1>
+      <p>Hi! I am currently conducting research on decision-making for my master's project. This study aims to explore whether individuals from different cultural backgrounds exhibit different patterns of decision-making.<br><br>您好！我目前正在進行一項關於決策的碩士論文研究，本研究旨在探討來自不同文化背景的個人，在決策模式上是否存在差異。</p>
     </div>
 
     <div class="card">
-      <h2><span class="icon">i</span> Study details</h2>
+      <h2><span class="icon">1</span> Study details 研究詳情</h2>
       <div class="detail-grid">
-        <div class="detail-item"><label>Purpose</label><span>Cross-cultural decision-making patterns</span></div>
-        <div class="detail-item"><label>Eligibility</label><span>Muslim / Buddhist / Christian, age 18–60</span></div>
-        <div class="detail-item"><label>Duration</label><span>~20 minutes</span></div>
-        <div class="detail-item"><label>Format</label><span>Online computerised task</span></div>
-      </div>
-      <div class="warn-note">&#9888; This test must be completed using a computer — not a mobile device.</div>
-    </div>
-
-    <div class="card">
-      <h2><span class="icon">1</span> Participant rights</h2>
-      <ul class="rights-list">
-        <li>Participate voluntarily and withdraw at any time without any negative consequences.</li>
-        <li>Decline to answer any question you do not feel comfortable with.</li>
-        <li>Have your personal information kept confidential and protected.</li>
-        <li>Be informed about the purpose of the study and how your data will be used.</li>
-        <li>Ask questions about the study at any time by contacting the researcher.</li>
-      </ul>
-      <div class="agree-box">
-        <input type="checkbox" id="ck1">
-        <label for="ck1">I have read and understood my rights as a participant in this study.</label>
+        <div class="detail-item"><label>Purpose</label><span>To examine the influence of cultural backgrounds on individual decision-making processes.<br>探討不同文化背景，在決策上是否存在差異。</span></div>
+        <div class="detail-item"><label>Duration</label><span>20 mins<br>（Completion time varies from person to person.每個人所需時間都不一樣）</span></div>
+        <div class="detail-item full"><label>Eligibility</label><span>· Malaysia 馬來西亞 (Muslim 穆斯林 / Buddhist 佛教)<br>· Taiwan 台灣 (Buddhist 佛教 / Christian 基督徒 / Atheist 無神論者)<br>· Age 年齡 18–60</span></div>
+        <div class="detail-item"><label>Format</label><span>Online task<br>綫上作業</span></div>
+        <div class="detail-item"><label>Contact</label><span>Email: zilin0426@gmail.com<br>Phone 電話: 0928-318-704（Taiwan 台灣）</span></div>
       </div>
     </div>
 
     <div class="card">
-      <h2><span class="icon">2</span> Informed consent</h2>
-      <p style="font-size:13px;color:#666;margin-bottom:12px;line-height:1.7">By proceeding, you confirm that:</p>
+      <h2><span class="icon">2</span> Informed consent 知情同意</h2>
+      <p style="font-size:13px;color:#666;margin-bottom:12px;line-height:1.7">By proceeding, you confirm that / 當您繼續參與時，即表示您確認：</p>
       <ul class="consent-list">
-        <li>You have read and understood the information provided about this research.</li>
-        <li>You are between 18 and 60 years of age.</li>
-        <li>You voluntarily agree to participate in this study.</li>
-        <li>You understand this study involves completing an online decision-making task and two questionnaires taking approximately 20 minutes.</li>
-        <li>You understand your responses will be used for academic research purposes only.</li>
-        <li>Your data will be securely managed and stored at the Department of Psychology, Kaohsiung Medical University, and will not be disclosed to any third party or used for purposes unrelated to this study.</li>
-        <li>You understand you may withdraw at any time without penalty by closing the browser or discontinuing participation.</li>
-        <li>This research protocol has been reviewed and approved by the Institutional Review Board (IRB).</li>
+        <li>You have read and understood the information provided about this research.<br>您已閱讀並理解本研究所提供的相關資訊。</li>
+        <li>You voluntarily agree to participate in this study.<br>您是自願同意參與本研究。</li>
+        <li>You will complete a computerized decision-making task and two questionnaires as part of this study. The study takes approximately 20 minutes to complete, although completion time may vary across participants.<br>您了解本研究包含一項電腦版的決策任務和兩份問卷，約20分鐘會完成（每個人所使用的時間都不一樣）。</li>
+        <li>Your data will be securely managed and stored at the Department of Psychology, Kaohsiung Medical University. All collected data and research results will be used exclusively for research purposes by the study team and will not be disclosed to any third party or used for purposes unrelated to this study.<br>您的資料會被妥善管理並保存在高雄醫學大學心理系實驗室，且資料結果僅提供給本團隊研究使用，不會將資料外洩至其他用途。</li>
+        <li>You understand you may withdraw at any time without penalty by closing the browser or discontinuing participation.<br>您了解您可隨時透過關閉瀏覽器或停止參與來退出研究，且不會受到任何懲罰。</li>
+        <li>This research protocol has been reviewed and approved by the Institutional Review Board (IRB) (Protocol No.: KMUHIRB-SV(II)-20230083).<br>本研究計劃書由人體實驗審查委員會（Institutional Review Board, IRB）審查通過才能執行（編號：KMUHIRB-SV(II)-20230083）。</li>
       </ul>
       <div class="agree-box">
         <input type="checkbox" id="ck2">
-        <label for="ck2">I confirm the above and give my informed consent to participate in this study.</label>
+        <label for="ck2">I confirm the above and give my informed consent to participate in this study.<br>我確認上述內容並同意參加本研究。</label>
       </div>
     </div>
 
@@ -169,7 +154,6 @@
             <option value="">Select / 選擇</option>
             <option value="TB">Taiwan - Buddhist 台灣-佛教</option>
             <option value="TC">Taiwan - Christian 台灣-基督教</option>
-            <option value="TI">Taiwan - Indigenous 台灣-原住民</option>
             <option value="TA">Taiwan - Atheist 台灣-無神論者</option>
             <option value="MB">Malaysia - Buddhist 馬來西亞-佛教</option>
             <option value="MM">Malaysia - Muslim 馬來西亞-穆斯林</option>
@@ -237,7 +221,6 @@
     <div class="progress-bar-wrap"><div class="progress-bar" style="width:75%"></div></div>
     <div class="hero">
       <div class="badge">Step 3 of 3</div>
-      <h1>Religiosity Questionnaire<br>宗教信仰量表</h1>
       <p>Please answer all 7 questions based on your personal experience. There are no right or wrong answers.<br>請根據您的個人經驗回答以下7題，沒有對錯之分。</p>
     </div>
 
@@ -345,7 +328,7 @@
       <div class="id-chip" id="finalID"></div>
       <p>Your data has been recorded. Please choose your preferred language to begin.<br>請選擇語言開始測驗。</p>
       <div class="manual-link-box" style="display:flex; gap:16px; justify-content:center; margin-top:20px;">
-        <a id="btnZh" class="btn-primary" href="#" style="text-decoration:none; display:inline-block;">中文版開始</a>
+        <a id="btnZh" class="btn-primary" href="#" style="text-decoration:none; display:inline-block;">中文</a>
         <a id="btnEn" class="btn-primary" href="#" style="text-decoration:none; display:inline-block;">English</a>
       </div>
     </div>
@@ -365,11 +348,9 @@ for (let y = 11; y <= 30; y++) {
 }
 
 // Step 1 consent
-const ck1 = document.getElementById('ck1');
 const ck2 = document.getElementById('ck2');
 const nextBtn = document.getElementById('nextBtn');
-function checkConsent() { nextBtn.disabled = !(ck1.checked && ck2.checked); }
-ck1.addEventListener('change', checkConsent);
+function checkConsent() { nextBtn.disabled = !ck2.checked; }
 ck2.addEventListener('change', checkConsent);
 
 function goStep2() {
