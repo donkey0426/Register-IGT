@@ -156,14 +156,13 @@
             <option value="TC">Taiwan - Christian 台灣-基督教</option>
             <option value="TA">Taiwan - Atheist 台灣-無神論者</option>
             <option value="TD">Taiwan - Taoist 台灣-道教</option>
+            <option value="TO">Taiwan - Other 台灣-其他</option>
             <option value="MB">Malaysia - Buddhist 馬來西亞-佛教</option>
             <option value="MM">Malaysia - Muslim 馬來西亞-穆斯林</option>
           </select>
-        <div class="conditional-input" id="religionOtherDetail">
-
-<input type="text" id="religionOtherText" placeholder="Please specify / 請填寫" oninput="checkForm()">
-
-</div>
+          <div class="conditional-input" id="religionOtherDetail">
+            <input type="text" id="religionOtherText" placeholder="Please specify / 請填寫" oninput="checkForm()">
+          </div>
         </div>
         <div class="form-group full">
           <label>Years of education 教育年數 * (11–30)</label>
@@ -391,32 +390,23 @@ function checkAge() {
 }
 
 // Participant ID: Country + Religion + Gender _ Nickname
-// countryReligion value: first char = Country (T=Taiwan, M=Malaysia), second char = Religion (B/C/I/A/M)
+// countryReligion value: first char = Country (T=Taiwan, M=Malaysia), second char = Religion (B/C/I/A/M/D/O)
 // Gender: M=Male, F=Female
 // Example: TBM_Alex, MMF_Janice
 function updateID() {
+  const cr = document.getElementById('countryReligion').value;
+  const gen = document.getElementById('gender').value;
+  const nick = document.getElementById('nickname').value.trim();
 
-const cr = document.getElementById('countryReligion').value;
+  const otherDetail = document.getElementById('religionOtherDetail');
+  if (cr === 'TO') {
+    otherDetail.style.display = 'block';
+  } else {
+    otherDetail.style.display = 'none';
+    document.getElementById('religionOtherText').value = '';
+  }
 
-const gen = document.getElementById('gender').value;
-
-const nick = document.getElementById('nickname').value.trim();
-
-const otherDetail = document.getElementById('religionOtherDetail');
-
-if (cr === 'TO') {
-
-otherDetail.style.display = 'block';
-
-} else {
-
-otherDetail.style.display = 'none';
-
-document.getElementById('religionOtherText').value = '';
-
-}
-
-if (cr && gen && nick) {
+  if (cr && gen && nick) {
     const country = cr.charAt(0);
     const rel = cr.charAt(1);
     const id = country + rel + gen + '_' + nick;
@@ -460,13 +450,12 @@ function checkForm() {
   const nick = document.getElementById('nickname').value.trim();
   const birthVal = document.getElementById('birth').value;
   const edu = document.getElementById('edu').value;
-const ageOk = birthVal && getAge(birthVal) >= 18 && getAge(birthVal) <= 60;
+  const ageOk = birthVal && getAge(birthVal) >= 18 && getAge(birthVal) <= 60;
 
-const religionOtherText = document.getElementById('religionOtherText').value.trim();
+  const religionOtherText = document.getElementById('religionOtherText').value.trim();
+  const religionOk = cr !== 'TO' || religionOtherText.length > 0;
 
-const religionOk = cr !== 'TO' || religionOtherText.length > 0;
-
-const brainNo = document.getElementById('brainNo').checked;
+  const brainNo = document.getElementById('brainNo').checked;
   const brainYes = document.getElementById('brainYes').checked;
   const brainText = document.getElementById('brainText').value.trim();
   const brainOk = brainNo || (brainYes && brainText.length > 0);
@@ -476,7 +465,7 @@ const brainNo = document.getElementById('brainNo').checked;
   const subText = document.getElementById('substanceText').value.trim();
   const substanceOk = subNo || (subYes && subText.length > 0);
 
- document.getElementById('step2Btn').disabled = !(cr && gen && nick && birthVal && edu && ageOk && religionOk && brainOk && substanceOk);
+  document.getElementById('step2Btn').disabled = !(cr && gen && nick && birthVal && edu && ageOk && religionOk && brainOk && substanceOk);
 }
 
 function goStep3() {
@@ -508,11 +497,10 @@ async function submitForm() {
   const edu = document.getElementById('edu').value;
   const participantID = country + rel + gen + '_' + nick;
 
- const relLabels = { B: 'Buddhist', C: 'Christian', I: 'Indigenous', A: 'Atheist', M: 'Muslim', D: 'Taoist', O: 'Other' };
+  const relLabels = { B: 'Buddhist', C: 'Christian', I: 'Indigenous', A: 'Atheist', M: 'Muslim', D: 'Taoist', O: 'Other' };
+  const religionOtherText = document.getElementById('religionOtherText').value.trim();
+  const religionLabel = (rel === 'O' && religionOtherText) ? ('Other: ' + religionOtherText) : relLabels[rel];
 
-const religionOtherText = document.getElementById('religionOtherText').value.trim();
-
-const religionLabel = (rel === 'O' && religionOtherText) ? ('Other: ' + religionOtherText) : relLabels[rel];
   const genLabels = { M: 'Male', F: 'Female' };
   const countryLabels = { M: 'Malaysia', T: 'Taiwan' };
 
@@ -537,7 +525,7 @@ const religionLabel = (rel === 'O' && religionOtherText) ? ('Other: ' + religion
     const params = new URLSearchParams({
       participantID,
       country: countryLabels[country],
-     religion: religionLabel,
+      religion: religionLabel,
       gender: genLabels[gen],
       nickname: nick,
       birth,
