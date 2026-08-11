@@ -159,6 +159,11 @@
             <option value="MB">Malaysia - Buddhist 馬來西亞-佛教</option>
             <option value="MM">Malaysia - Muslim 馬來西亞-穆斯林</option>
           </select>
+        <div class="conditional-input" id="religionOtherDetail">
+
+<input type="text" id="religionOtherText" placeholder="Please specify / 請填寫" oninput="checkForm()">
+
+</div>
         </div>
         <div class="form-group full">
           <label>Years of education 教育年數 * (11–30)</label>
@@ -390,10 +395,28 @@ function checkAge() {
 // Gender: M=Male, F=Female
 // Example: TBM_Alex, MMF_Janice
 function updateID() {
-  const cr = document.getElementById('countryReligion').value;
-  const gen = document.getElementById('gender').value;
-  const nick = document.getElementById('nickname').value.trim();
-  if (cr && gen && nick) {
+
+const cr = document.getElementById('countryReligion').value;
+
+const gen = document.getElementById('gender').value;
+
+const nick = document.getElementById('nickname').value.trim();
+
+const otherDetail = document.getElementById('religionOtherDetail');
+
+if (cr === 'TO') {
+
+otherDetail.style.display = 'block';
+
+} else {
+
+otherDetail.style.display = 'none';
+
+document.getElementById('religionOtherText').value = '';
+
+}
+
+if (cr && gen && nick) {
     const country = cr.charAt(0);
     const rel = cr.charAt(1);
     const id = country + rel + gen + '_' + nick;
@@ -437,9 +460,13 @@ function checkForm() {
   const nick = document.getElementById('nickname').value.trim();
   const birthVal = document.getElementById('birth').value;
   const edu = document.getElementById('edu').value;
-  const ageOk = birthVal && getAge(birthVal) >= 18 && getAge(birthVal) <= 60;
+const ageOk = birthVal && getAge(birthVal) >= 18 && getAge(birthVal) <= 60;
 
-  const brainNo = document.getElementById('brainNo').checked;
+const religionOtherText = document.getElementById('religionOtherText').value.trim();
+
+const religionOk = cr !== 'TO' || religionOtherText.length > 0;
+
+const brainNo = document.getElementById('brainNo').checked;
   const brainYes = document.getElementById('brainYes').checked;
   const brainText = document.getElementById('brainText').value.trim();
   const brainOk = brainNo || (brainYes && brainText.length > 0);
@@ -449,7 +476,7 @@ function checkForm() {
   const subText = document.getElementById('substanceText').value.trim();
   const substanceOk = subNo || (subYes && subText.length > 0);
 
-  document.getElementById('step2Btn').disabled = !(cr && gen && nick && birthVal && edu && ageOk && brainOk && substanceOk);
+ document.getElementById('step2Btn').disabled = !(cr && gen && nick && birthVal && edu && ageOk && religionOk && brainOk && substanceOk);
 }
 
 function goStep3() {
@@ -481,7 +508,11 @@ async function submitForm() {
   const edu = document.getElementById('edu').value;
   const participantID = country + rel + gen + '_' + nick;
 
-  const relLabels = { B: 'Buddhist', C: 'Christian', I: 'Indigenous', A: 'Atheist', M: 'Muslim', D: 'Taoist' };
+ const relLabels = { B: 'Buddhist', C: 'Christian', I: 'Indigenous', A: 'Atheist', M: 'Muslim', D: 'Taoist', O: 'Other' };
+
+const religionOtherText = document.getElementById('religionOtherText').value.trim();
+
+const religionLabel = (rel === 'O' && religionOtherText) ? ('Other: ' + religionOtherText) : relLabels[rel];
   const genLabels = { M: 'Male', F: 'Female' };
   const countryLabels = { M: 'Malaysia', T: 'Taiwan' };
 
@@ -506,7 +537,7 @@ async function submitForm() {
     const params = new URLSearchParams({
       participantID,
       country: countryLabels[country],
-      religion: relLabels[rel],
+     religion: religionLabel,
       gender: genLabels[gen],
       nickname: nick,
       birth,
