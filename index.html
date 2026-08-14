@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=Noto+Serif+TC:wght@400;500&family=Noto+Sans+TC:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', 'Noto Sans TC', sans-serif; background: #f5f4f0; color: #1a1a1a; min-height: 100vh; }
+  body { font-family: 'Crimson Pro', 'Noto Serif TC', serif; background: #f5f4f0; color: #1a1a1a; min-height: 100vh; }
   .wrap { max-width: 660px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
   .hero { text-align: center; padding: 2.5rem 1rem 2rem; border-bottom: 1px solid #e0ddd6; margin-bottom: 2rem; }
   .badge { display: inline-block; background: #e8f0fb; color: #2563eb; font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 20px; margin-bottom: 1rem; letter-spacing: .03em; }
@@ -33,12 +33,12 @@
   .form-group { display: flex; flex-direction: column; gap: 6px; }
   .form-group.full { grid-column: 1 / -1; }
   .form-group label { font-size: 11px; color: #999; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
-  .form-group input, .form-group select { font-family: 'DM Sans', 'Noto Sans TC', sans-serif; font-size: 14px; padding: 9px 12px; border: 1px solid #e0ddd6; border-radius: 8px; background: #fff; color: #1a1a1a; width: 100%; transition: border-color .15s; }
+  .form-group input, .form-group select { font-family: 'Crimson Pro', 'Noto Serif TC', serif; font-size: 14px; padding: 9px 12px; border: 1px solid #e0ddd6; border-radius: 8px; background: #fff; color: #1a1a1a; width: 100%; transition: border-color .15s; }
   .form-group input:focus, .form-group select:focus { outline: none; border-color: #999; }
   .id-preview { background: #f0f9f4; border: 1px solid #bbf0d4; border-radius: 8px; padding: 12px 16px; margin-top: 1.25rem; display: none; align-items: center; gap: 12px; }
   .id-preview .id-label { font-size: 11px; color: #4a7c59; text-transform: uppercase; letter-spacing: .05em; }
   .id-preview .id-value { font-family: monospace; font-size: 16px; font-weight: 600; color: #166534; letter-spacing: .06em; margin-top: 2px; }
-  .btn-primary { width: 100%; padding: 13px; background: #1a1a1a; color: #fff; border: none; border-radius: 8px; font-family: 'DM Sans', 'Noto Sans TC', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; margin-top: 1.5rem; transition: opacity .2s; }
+  .btn-primary { width: 100%; padding: 13px; background: #1a1a1a; color: #fff; border: none; border-radius: 8px; font-family: 'Crimson Pro', 'Noto Serif TC', serif; font-size: 14px; font-weight: 500; cursor: pointer; margin-top: 1.5rem; transition: opacity .2s; }
   .btn-primary:hover { opacity: .85; }
   .btn-primary:disabled { opacity: .35; cursor: not-allowed; }
   .contact { text-align: center; font-size: 12px; color: #999; margin-top: 1.5rem; }
@@ -60,7 +60,7 @@
   .check-row input[type=checkbox] { width: 15px; height: 15px; flex-shrink: 0; margin-top: 3px; cursor: pointer; accent-color: #1a1a1a; }
   .check-row label { font-size: 13px; line-height: 1.6; color: #444; cursor: pointer; }
   .conditional-input { margin-top: 8px; display: none; }
-  .conditional-input input { font-family: 'DM Sans', 'Noto Sans TC', sans-serif; font-size: 13px; padding: 8px 12px; border: 1px solid #e0ddd6; border-radius: 8px; width: 100%; }
+  .conditional-input input { font-family: 'Crimson Pro', 'Noto Serif TC', serif; font-size: 13px; padding: 8px 12px; border: 1px solid #e0ddd6; border-radius: 8px; width: 100%; }
   .conditional-input input:focus { outline: none; border-color: #999; }
   .section-divider { border: none; border-top: 1px solid #e8e5de; margin: 1rem 0; }
   /* CRSi-7 questionnaire */
@@ -87,16 +87,17 @@
       <div class="badge">Research Study</div>
       <h1>Decision-Making Research<br>Participants Wanted<br>決策研究　誠徵受試者</h1>
       <p>Hi! I am currently conducting research on decision-making for my master's project. This study aims to explore whether individuals from different cultural backgrounds exhibit different patterns of decision-making.<br><br>您好！我目前正在進行一項關於決策的碩士論文研究，本研究旨在探討來自不同文化背景的個人，在決策模式上是否存在差異。</p>
+      <p style="margin-top:1rem;font-size:13px;color:#888;">Advisor 指導教授：Ching-Hung Lin 林錦宏　·　Student 學生：Low Zi Lin 呂梓綝</p>
     </div>
 
     <div class="card">
       <h2><span class="icon">1</span> Study details 研究詳情</h2>
       <div class="detail-grid">
-       <div class="detail-item"><label>Title</span> A Cross-Cultural Comparison of Decision-Making Behavior in the Iowa Gambling Task.愛荷華賭博研究之跨文化比較。
+        <div class="detail-item full"><label>Title 題目</label><span>Cross-Cultural Comparison of Decision-Making Behavior in the Iowa Gambling Task<br>愛荷華賭博研究之跨文化比較</span></div>
         <div class="detail-item"><label>Purpose</label><span>To examine the influence of cultural backgrounds on individual decision-making processes.<br>探討不同文化背景，在決策上是否存在差異。</span></div>
         <div class="detail-item"><label>Duration</label><span>20 mins<br>（Completion time varies from person to person.每個人所需時間都不一樣）</span></div>
-        <div class="detail-item full"><label>Eligibility</label><span>· Malaysia 馬來西亞 (Muslim 穆斯林 / Buddhist 佛教)<br>· Taiwan 台灣 (All residents 所有台灣人)<br>· Age 年齡 18–60</span></div>
-        <div class="detail-item"><label>Format</label><span>Online task<br>缐上作業</span></div> 
+        <div class="detail-item full"><label>Eligibility</label><span>· Malaysia 馬來西亞<br>· Taiwan 台灣<br>· Age 年齡 18–60</span></div>
+        <div class="detail-item"><label>Format</label><span>Online task<br>綫上作業</span></div>
         <div class="detail-item"><label>Contact</label><span>Email: zilin0426@gmail.com<br>Phone 電話: 0928-318-704（Taiwan 台灣）</span></div>
       </div>
     </div>
@@ -149,21 +150,35 @@
             <option value="F">Female 女</option>
           </select>
         </div>
-       <div class="form-group full">
-          <label>Country &amp; Religion 國籍與宗教 *</label>
-          <select id="countryReligion" onchange="updateID()">
+        <div class="form-group">
+          <label>Country 國籍 *</label>
+          <select id="country" onchange="onCountryChange()">
             <option value="">Select / 選擇</option>
-            <option value="TB">Taiwan - Buddhist 台灣-佛教</option>
-            <option value="TC">Taiwan - Christian 台灣-基督教</option>
-            <option value="TA">Taiwan - Atheist 台灣-無神論者</option>
-            <option value="TD">Taiwan - Taoist 台灣-道教</option>
-            <option value="TO">Taiwan - Other 台灣-其他</option>
-            <option value="MB">Malaysia - Buddhist 馬來西亞-佛教</option>
-            <option value="MM">Malaysia - Muslim 馬來西亞-穆斯林</option>
+            <option value="T">Taiwan 台灣</option>
+            <option value="M">Malaysia 馬來西亞</option>
           </select>
-          <div class="conditional-input" id="religionOtherDetail">
-            <input type="text" id="religionOtherText" placeholder="Please specify / 請填寫" oninput="checkForm()">
-          </div>
+        </div>
+        <div class="form-group">
+          <label>Religion 宗教 *</label>
+          <select id="religion" onchange="updateID()" disabled>
+            <option value="">Select country first / 請先選擇國籍</option>
+          </select>
+        </div>
+        <div class="conditional-input" id="religionOtherDetail" style="grid-column: 1 / -1;">
+          <input type="text" id="religionOtherText" placeholder="Please specify / 請填寫" oninput="checkForm()">
+        </div>
+        <div class="form-group" id="ethnicityGroup" style="display:none;grid-column: 1 / -1;">
+          <label>Ethnicity 種族 *</label>
+          <select id="ethnicity" onchange="onEthnicityChange()">
+            <option value="">Select / 選擇</option>
+            <option value="ML">Malay 馬來人</option>
+            <option value="CH">Chinese 華人</option>
+            <option value="IN">Indian 印度人</option>
+            <option value="OT">Other 其他</option>
+          </select>
+        </div>
+        <div class="conditional-input" id="ethnicityOtherDetail" style="grid-column: 1 / -1;">
+          <input type="text" id="ethnicityOtherText" placeholder="Please specify / 請填寫" oninput="checkForm()">
         </div>
         <div class="form-group full">
           <label>Years of education 教育年數 * (11–30)</label>
@@ -228,7 +243,9 @@
     <div class="progress-bar-wrap"><div class="progress-bar" style="width:75%"></div></div>
     <div class="hero">
       <div class="badge">Step 3 of 3</div>
+      <h1 style="font-size:22px;">The Centrality of Religiosity Scale (CRS)<br>宗教信仰量表</h1>
       <p>Please answer all 7 questions based on your personal experience. There are no right or wrong answers.<br>請根據您的個人經驗回答以下7題，沒有對錯之分。</p>
+      <p style="font-size:11px;color:#aaa;margin-top:.75rem;">Ref: Huber, S., &amp; Huber, O. W. (2012). The Centrality of Religiosity Scale (CRS). <em>Religions, 3</em>(3), 710–724.</p>
     </div>
 
     <div class="card">
@@ -391,26 +408,76 @@ function checkAge() {
 }
 
 // Participant ID: Country + Religion + Gender _ Nickname
-// countryReligion value: first char = Country (T=Taiwan, M=Malaysia), second char = Religion (B/C/I/A/M/D/O)
-// Gender: M=Male, F=Female
+// Country: T=Taiwan, M=Malaysia. Religion: B/C/A/D/O (Taiwan) or B/M (Malaysia). Gender: M=Male, F=Female
 // Example: TBM_Alex, MMF_Janice
+function onCountryChange() {
+  const country = document.getElementById('country').value;
+  const religionSel = document.getElementById('religion');
+  const ethnicityGroup = document.getElementById('ethnicityGroup');
+
+  let options = '';
+  if (country === 'T') {
+    options = '<option value="">Select / 選擇</option>' +
+      '<option value="B">Buddhist 佛教</option>' +
+      '<option value="C">Christian 基督教</option>' +
+      '<option value="K">Catholic 天主教</option>' +
+      '<option value="A">Atheist 無神論者</option>' +
+      '<option value="D">Taoist 道教</option>' +
+      '<option value="O">Other 其他</option>';
+  } else if (country === 'M') {
+    options = '<option value="">Select / 選擇</option>' +
+      '<option value="B">Buddhist 佛教</option>' +
+      '<option value="M">Muslim 穆斯林</option>' +
+      '<option value="C">Christian 基督教</option>' +
+      '<option value="O">Other 其他</option>';
+  } else {
+    options = '<option value="">Select country first / 請先選擇國籍</option>';
+  }
+
+  religionSel.innerHTML = options;
+  religionSel.disabled = !country;
+  religionSel.value = '';
+
+  if (country === 'M') {
+    ethnicityGroup.style.display = 'flex';
+  } else {
+    ethnicityGroup.style.display = 'none';
+    document.getElementById('ethnicity').value = '';
+    document.getElementById('ethnicityOtherDetail').style.display = 'none';
+    document.getElementById('ethnicityOtherText').value = '';
+  }
+
+  updateID();
+}
+
+function onEthnicityChange() {
+  const ethnicity = document.getElementById('ethnicity').value;
+  const otherDetail = document.getElementById('ethnicityOtherDetail');
+  if (ethnicity === 'OT') {
+    otherDetail.style.display = 'block';
+  } else {
+    otherDetail.style.display = 'none';
+    document.getElementById('ethnicityOtherText').value = '';
+  }
+  checkForm();
+}
+
 function updateID() {
-  const cr = document.getElementById('countryReligion').value;
+  const country = document.getElementById('country').value;
+  const religion = document.getElementById('religion').value;
   const gen = document.getElementById('gender').value;
   const nick = document.getElementById('nickname').value.trim();
 
   const otherDetail = document.getElementById('religionOtherDetail');
-  if (cr === 'TO') {
+  if (religion === 'O') {
     otherDetail.style.display = 'block';
   } else {
     otherDetail.style.display = 'none';
     document.getElementById('religionOtherText').value = '';
   }
 
-  if (cr && gen && nick) {
-    const country = cr.charAt(0);
-    const rel = cr.charAt(1);
-    const id = country + rel + gen + '_' + nick;
+  if (country && religion && gen && nick) {
+    const id = country + religion + gen + '_' + nick;
     document.getElementById('idValue').textContent = id;
     document.getElementById('idPreview').style.display = 'flex';
   } else {
@@ -446,7 +513,8 @@ function onSubstanceChange(el) {
 }
 
 function checkForm() {
-  const cr = document.getElementById('countryReligion').value;
+  const country = document.getElementById('country').value;
+  const religion = document.getElementById('religion').value;
   const gen = document.getElementById('gender').value;
   const nick = document.getElementById('nickname').value.trim();
   const birthVal = document.getElementById('birth').value;
@@ -454,7 +522,11 @@ function checkForm() {
   const ageOk = birthVal && getAge(birthVal) >= 18 && getAge(birthVal) <= 60;
 
   const religionOtherText = document.getElementById('religionOtherText').value.trim();
-  const religionOk = cr !== 'TO' || religionOtherText.length > 0;
+  const religionOk = religion !== 'O' || religionOtherText.length > 0;
+
+  const ethnicity = document.getElementById('ethnicity').value;
+  const ethnicityOtherText = document.getElementById('ethnicityOtherText').value.trim();
+  const ethnicityOk = country !== 'M' || (ethnicity && (ethnicity !== 'OT' || ethnicityOtherText.length > 0));
 
   const brainNo = document.getElementById('brainNo').checked;
   const brainYes = document.getElementById('brainYes').checked;
@@ -466,7 +538,7 @@ function checkForm() {
   const subText = document.getElementById('substanceText').value.trim();
   const substanceOk = subNo || (subYes && subText.length > 0);
 
-  document.getElementById('step2Btn').disabled = !(cr && gen && nick && birthVal && edu && ageOk && religionOk && brainOk && substanceOk);
+  document.getElementById('step2Btn').disabled = !(country && religion && gen && nick && birthVal && edu && ageOk && religionOk && ethnicityOk && brainOk && substanceOk);
 }
 
 function goStep3() {
@@ -489,18 +561,22 @@ function checkQuestions() {
 
 // Submit
 async function submitForm() {
-  const cr = document.getElementById('countryReligion').value;
-  const country = cr.charAt(0);
-  const rel = cr.charAt(1);
+  const country = document.getElementById('country').value;
+  const rel = document.getElementById('religion').value;
   const gen = document.getElementById('gender').value;
   const nick = document.getElementById('nickname').value.trim();
   const birth = document.getElementById('birth').value;
   const edu = document.getElementById('edu').value;
   const participantID = country + rel + gen + '_' + nick;
 
-  const relLabels = { B: 'Buddhist', C: 'Christian', I: 'Indigenous', A: 'Atheist', M: 'Muslim', D: 'Taoist', O: 'Other' };
+  const relLabels = { B: 'Buddhist', C: 'Christian', I: 'Indigenous', A: 'Atheist', M: 'Muslim', D: 'Taoist', K: 'Catholic', O: 'Other' };
   const religionOtherText = document.getElementById('religionOtherText').value.trim();
   const religionLabel = (rel === 'O' && religionOtherText) ? ('Other: ' + religionOtherText) : relLabels[rel];
+
+  const ethLabels = { ML: 'Malay', CH: 'Chinese', IN: 'Indian', OT: 'Other' };
+  const ethnicity = document.getElementById('ethnicity').value;
+  const ethnicityOtherText = document.getElementById('ethnicityOtherText').value.trim();
+  const ethnicityLabel = ethnicity ? ((ethnicity === 'OT' && ethnicityOtherText) ? ('Other: ' + ethnicityOtherText) : ethLabels[ethnicity]) : '';
 
   const genLabels = { M: 'Male', F: 'Female' };
   const countryLabels = { M: 'Malaysia', T: 'Taiwan' };
@@ -527,6 +603,7 @@ async function submitForm() {
       participantID,
       country: countryLabels[country],
       religion: religionLabel,
+      ethnicity: ethnicityLabel,
       gender: genLabels[gen],
       nickname: nick,
       birth,
