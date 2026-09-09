@@ -139,8 +139,8 @@
       <div class="form-grid">
         <div class="form-group">
           <label>Nickname 昵稱 *</label>
-          <input type="text" id="nickname" placeholder="e.g. Alex (English only)" oninput="updateID()">
-          <div class="error-msg" id="nicknameErr" style="display:none;">Please use English letters and numbers only (no Chinese characters or symbols) / 請只使用英文字母與數字（不要使用中文或特殊符號）</div>
+          <input type="text" id="nickname" placeholder="e.g. Alex (English letters)" oninput="updateID()">
+          <div class="error-msg" id="nicknameErr" style="display:none;">Please use English letters only , no spaces (no Chinese characters or symbols) / 請只使用英文字母，不可有空格（不要使用中文或特殊符號）</div>
         </div>
         <div class="form-group">
           <label>Date of birth 生日 * (age 18–60)</label>
@@ -468,11 +468,15 @@ function onEthnicityChange() {
   checkForm();
 }
 
+function sanitizeNickname(raw) {
+  return raw.trim();
+}
+
 function updateID() {
   const country = document.getElementById('country').value;
   const religion = document.getElementById('religion').value;
   const gen = document.getElementById('gender').value;
-  const nick = document.getElementById('nickname').value.trim();
+  const nick = sanitizeNickname(document.getElementById('nickname').value);
   const nickOk = /^[A-Za-z0-9]+$/.test(nick);
   const nicknameErr = document.getElementById('nicknameErr');
   nicknameErr.style.display = (nick.length > 0 && !nickOk) ? 'block' : 'none';
@@ -525,7 +529,7 @@ function checkForm() {
   const country = document.getElementById('country').value;
   const religion = document.getElementById('religion').value;
   const gen = document.getElementById('gender').value;
-  const nick = document.getElementById('nickname').value.trim();
+  const nick = sanitizeNickname(document.getElementById('nickname').value);
   const nickOk = /^[A-Za-z0-9]+$/.test(nick);
   const birthVal = document.getElementById('birth').value;
   const edu = document.getElementById('edu').value;
@@ -574,7 +578,7 @@ async function submitForm() {
   const country = document.getElementById('country').value;
   const rel = document.getElementById('religion').value;
   const gen = document.getElementById('gender').value;
-  const nick = document.getElementById('nickname').value.trim();
+  const nick = sanitizeNickname(document.getElementById('nickname').value);
   const birth = document.getElementById('birth').value;
   const edu = document.getElementById('edu').value;
   const participantID = country + rel + gen + '_' + nick;
